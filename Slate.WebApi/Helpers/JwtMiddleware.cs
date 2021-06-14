@@ -55,10 +55,10 @@ namespace Slate.WebApi.Helpers
         sth.ValidateToken(token, tvp, out SecurityToken validatedToken);
 
         var jwtToken = (JwtSecurityToken)validatedToken;
-        var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+        var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
 
         // cornflourblue: attach user to context on successful jwt validation
-        context.Items["User"] = userService.GetById(userId);
+        context.Items["User"] = userService.GetByEmail(userEmail);
       }
       catch
       {

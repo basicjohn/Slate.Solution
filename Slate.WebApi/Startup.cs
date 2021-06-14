@@ -7,12 +7,14 @@
 // using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using Slate.WebApi.Helpers;
+using Slate.WebApi.Models;
 using Slate.WebApi.Services;
 
 namespace Slate.WebApi
@@ -30,7 +32,16 @@ namespace Slate.WebApi
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddCors();
+      services.AddApiVersioning(o =>
+        {
+          o.ReportApiVersions = true;
+          o.AssumeDefaultVersionWhenUnspecified = true;
+          o.DefaultApiVersion = new(0, 0);
+        }
+      );
       services.AddControllers();
+      services.AddDbContext<SlateWebApiContext>(options => options
+        .UseMySql(Config["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Config["ConnectionStrings:DefaultConnection"])));
       // cornflourblue: configure strongly typed settings object
       services.Configure<AppSettings>(Config.GetSection("AppSettings"));
       // cornflourblue: configure DI for application services
