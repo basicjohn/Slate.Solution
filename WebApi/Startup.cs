@@ -40,7 +40,7 @@ namespace WebApi
         }
       );
       services.AddControllers();
-      services.AddDbContext<SlateWebApiContext>(options => options
+      services.AddDbContext<WebApiContext>(options => options
         .UseMySql(Config["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Config["ConnectionStrings:DefaultConnection"])));
       // cornflourblue: configure strongly typed settings object
       services.Configure<AppSettings>(Config.GetSection("AppSettings"));

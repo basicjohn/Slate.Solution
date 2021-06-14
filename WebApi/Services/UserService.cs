@@ -18,6 +18,7 @@ namespace WebApi.Services
     (string, User) Register(RegisterRequest model);
     IEnumerable<User> GetAll();
     User GetByEmail(string email);
+    User GetById(string id);
   }
 
   public class UserService : IUserService
@@ -28,11 +29,11 @@ namespace WebApi.Services
     //   new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test" }
     // };
 
-    private readonly SlateWebApiContext _db;
+    private readonly WebApiContext _db;
 
     private readonly AppSettings _appSettings;
 
-    public UserService(SlateWebApiContext db, IOptions<AppSettings> appSettings)
+    public UserService(WebApiContext db, IOptions<AppSettings> appSettings)
     {
       _db = db;
       _appSettings = appSettings.Value;
@@ -73,8 +74,8 @@ namespace WebApi.Services
     }
 
     public IEnumerable<User> GetAll() => _db.Users.ToList();
-
     public User GetByEmail(string email) => _db.Users.FirstOrDefault(u => u.Email == email);
+    public User GetById(string id) => _db.Users.FirstOrDefault(u => u.Id == id);
 
     // helper methods
 
@@ -85,7 +86,7 @@ namespace WebApi.Services
       var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
       var tokenDescriptor = new SecurityTokenDescriptor
       {
-        Subject = new ClaimsIdentity(new[] { new Claim("email", user.Email) }),
+        Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id) }),
         Expires = DateTime.UtcNow.AddDays(7),
         SigningCredentials = new SigningCredentials(
           new SymmetricSecurityKey(key),

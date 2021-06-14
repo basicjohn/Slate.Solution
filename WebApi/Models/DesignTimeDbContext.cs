@@ -5,21 +5,21 @@ using System.IO;
 
 namespace WebApi.Models
 {
-  public class WebApiContextFactory : IDesignTimeDbContextFactory<SlateWebApiContext>
+  public class WebApiContextFactory : IDesignTimeDbContextFactory<WebApiContext>
   {
 
-    SlateWebApiContext IDesignTimeDbContextFactory<SlateWebApiContext>.CreateDbContext(string[] args)
+    WebApiContext IDesignTimeDbContextFactory<WebApiContext>.CreateDbContext(string[] args)
     {
       IConfigurationRoot configuration = new ConfigurationBuilder()
           .SetBasePath(Directory.GetCurrentDirectory())
           .AddJsonFile("appsettings.json")
           .Build();
 
-      var builder = new DbContextOptionsBuilder<SlateWebApiContext>();
+      var builder = new DbContextOptionsBuilder<WebApiContext>();
 
       builder.UseMySql(configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"]));
 
-      return new SlateWebApiContext(builder.Options);
+      return new WebApiContext(builder.Options);
     }
   }
 }
