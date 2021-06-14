@@ -10,4 +10,5 @@ Thumbs.db
 ######################
 bin/
 obj/
-Slate.WebApi/appsettings.json
+WebApi/appsettings.json
+.vscode/
