@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Blazor.Services
+namespace Slate.Blazor.Services
 {
   public interface IHttpService
   {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Net;
 
-namespace Blazor.Helpers
+namespace Slate.Blazor.Helpers
 {
   public class AppRouteView : RouteView
   {

@@ -2,7 +2,7 @@ using Microsoft.JSInterop;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Blazor.Services
+namespace Slate.Blazor.Services
 {
   public interface ILocalStorageService
   {

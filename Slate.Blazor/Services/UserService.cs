@@ -2,7 +2,7 @@ using Slate.Blazor.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Blazor.Services
+namespace Slate.Blazor.Services
 {
   public interface IUserService
   {

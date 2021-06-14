@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Slate.Blazor.Helpers;
 using Slate.Blazor.Services;
 
-namespace Blazor
+namespace Slate.Blazor
 {
   public class Program
   {

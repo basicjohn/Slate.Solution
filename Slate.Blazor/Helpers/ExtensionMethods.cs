@@ -3,7 +3,7 @@ using System;
 using System.Collections.Specialized;
 using System.Web;
 
-namespace Blazor.Helpers
+namespace Slate.Blazor.Helpers
 {
   public static class ExtensionMethods
   {

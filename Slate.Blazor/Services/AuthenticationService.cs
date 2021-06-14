@@ -2,7 +2,7 @@ using Slate.Blazor.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace Blazor.Services
+namespace Slate.Blazor.Services
 {
   public interface IAuthenticationService
   {

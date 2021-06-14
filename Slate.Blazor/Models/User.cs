@@ -1,11 +1,7 @@
-namespace Blazor.Models
+namespace Slate.Blazor.Models
 {
-  public class User
+  public class User : WebApi.Entities.User
   {
-    public int Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Username { get; set; }
     public string Token { get; set; }
   }
 }

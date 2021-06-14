@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blazor.Helpers
+namespace Slate.Blazor.Helpers
 {
   public class FakeBackendHandler : HttpClientHandler
   {

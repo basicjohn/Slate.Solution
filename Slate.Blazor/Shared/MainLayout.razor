@@ -1,3 +1,4 @@
+@namespace Slate.Blazor
 @inherits LayoutComponentBase
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
@@ -6,11 +7,11 @@
 {
   <!-- nav -->
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="navbar-nav">
-    <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-    <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
-  </div>
-</nav>
+    <div class="navbar-nav">
+      <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
+      <NavLink href="logout" class="nav-item nav-link">Logout</NavLink>
+    </div>
+  </nav>
 }
 
 <div class="container">
