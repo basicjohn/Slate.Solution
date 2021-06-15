@@ -38,6 +38,7 @@ namespace Slate.Server.Helpers
       string token
     )
     {
+      Console.WriteLine("JWT MID - CATCH BLOCK - AttachUserToContext Method - START");
       try
       {
         var sth = new JwtSecurityTokenHandler();
@@ -55,13 +56,19 @@ namespace Slate.Server.Helpers
         sth.ValidateToken(token, tvp, out SecurityToken validatedToken);
 
         var jwtToken = (JwtSecurityToken)validatedToken;
-        var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
+        Console.WriteLine($"Claims: {jwtToken.Claims}");
+        var userEmailField = jwtToken.Claims.First(x => x.Type == "id");
+        Console.WriteLine("JWT MID - CATCH BLOCK - AttachUserToContext Method - Before getting user. {0}", userEmailField);
+        var userEmail = userEmailField.Value;
+        Console.WriteLine("JWT MID - CATCH BLOCK - AttachUserToContext Method - Before getting user. {0}", userEmail);
 
+        Console.WriteLine("JWT MID - CATCH BLOCK - AttachUserToContext Method - Authenticated");
         // cornflourblue: attach user to context on successful jwt validation
-        context.Items["User"] = userService.GetByEmail(userEmail);
+        context.Items["User"] = userService.GetById(userEmail);
       }
       catch
       {
+        Console.WriteLine("JWT MID - CATCH BLOCK - AttachUserToContext Method - Not Authenticated");
         // do nothing if jwt validation fails
         // user is not attached to context so request won't have access to secure routes
       }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+
 using Slate.Server.Helpers;
 using Slate.Server.Models;
 using Slate.Server.Services;
@@ -16,6 +18,17 @@ namespace Slate.Server.Controllers
       _userService = userService;
     }
 
+    [HttpPost("register")]
+    public IActionResult Register(RegisterRequest model)
+    {
+      var response = _userService.Register(model);
+      var (message, user) = response;
+
+      if (user == null) return BadRequest(new { message });
+
+      return Ok(response);
+    }
+
     [HttpPost("authenticate")]
     public IActionResult Authenticate(AuthenticateRequest model)
     {
@@ -29,6 +42,10 @@ namespace Slate.Server.Controllers
 
     [Authorize]
     [HttpGet]
-    public IActionResult GetAll() => Ok(_userService.GetAll());
+    public IActionResult GetAll()
+    {
+      Console.WriteLine();
+      return Ok(_userService.GetAll());
+    }
   }
 }
