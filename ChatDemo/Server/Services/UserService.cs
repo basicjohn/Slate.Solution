@@ -6,11 +6,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using WebApi.Entities;
-using WebApi.Helpers;
-using WebApi.Models;
+using Slate.Server.Entities;
+using Slate.Server.Helpers;
+using Slate.Server.Models;
 
-namespace WebApi.Services
+namespace Slate.Server.Services
 {
   public interface IUserService
   {
@@ -29,11 +29,11 @@ namespace WebApi.Services
     //   new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test" }
     // };
 
-    private readonly WebApiContext _db;
+    private readonly SlateServerContext _db;
 
     private readonly AppSettings _appSettings;
 
-    public UserService(WebApiContext db, IOptions<AppSettings> appSettings)
+    public UserService(SlateServerContext db, IOptions<AppSettings> appSettings)
     {
       _db = db;
       _appSettings = appSettings.Value;

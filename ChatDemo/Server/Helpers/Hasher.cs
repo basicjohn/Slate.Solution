@@ -2,10 +2,10 @@ using System;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-using WebApi.Entities;
+using Slate.Server.Entities;
 
 // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-5.0
-namespace WebApi.Helpers
+namespace Slate.Server.Helpers
 {
   public class Hasher
   {

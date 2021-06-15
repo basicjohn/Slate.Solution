@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApi.Models
+namespace Slate.Server.Models
 {
   public class AuthenticateRequest
   {

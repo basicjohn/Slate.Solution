@@ -1,4 +1,4 @@
-namespace WebApi.Helpers
+namespace Slate.Server.Helpers
 {
   public class AppSettings
   {

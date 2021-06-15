@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Helpers;
-using WebApi.Models;
-using WebApi.Services;
+using Slate.Server.Helpers;
+using Slate.Server.Models;
+using Slate.Server.Services;
 
-namespace WebApi.Controllers
+namespace Slate.Server.Controllers
 {
   [ApiController]
   [Route("[controller]")]

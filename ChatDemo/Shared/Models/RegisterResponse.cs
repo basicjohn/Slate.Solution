@@ -1,6 +1,6 @@
-using WebApi.Entities;
+using Slate.Server.Entities;
 
-namespace WebApi.Models
+namespace Slate.Server.Models
 {
   public class RegisterResponse
   {
