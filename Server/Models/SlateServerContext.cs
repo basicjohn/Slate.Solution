@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Slate.Server.Entities;
+using Slate.Shared.Entities;
 
 namespace Slate.Server.Models
 {

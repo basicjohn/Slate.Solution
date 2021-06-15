@@ -6,9 +6,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Slate.Server.Entities;
 using Slate.Server.Helpers;
 using Slate.Server.Models;
+using Slate.Shared.Entities;
+using Slate.Shared.Models;
 
 namespace Slate.Server.Services
 {

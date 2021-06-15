@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-using Slate.Server.Entities;
+using Slate.Shared.Entities;
 
 // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-5.0
 namespace Slate.Server.Helpers

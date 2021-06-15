@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace Slate.Server.Entities
+namespace Slate.Shared.Entities
 {
   public class User
   {
@@ -17,5 +17,6 @@ namespace Slate.Server.Entities
     public byte[] Salt { get; set; }
     [JsonIgnore]
     public string Hash { get; set; }
+    public string Token {get;set;}
   }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace Slate.Server.Entities
+namespace Slate.Shared.Entities
 {
   public class Board
   {

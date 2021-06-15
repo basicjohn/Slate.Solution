@@ -1,6 +1,6 @@
-using Slate.Server.Entities;
+using Slate.Shared.Entities;
 
-namespace Slate.Server.Models
+namespace Slate.Shared.Models
 {
   public class RegisterResponse
   {

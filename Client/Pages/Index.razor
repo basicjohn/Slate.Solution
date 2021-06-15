@@ -1,58 +1,12 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.SignalR.Client
 @inject NavigationManager NavigationManager
-@implements IAsyncDisposable
 
-@* Editor role - show textarea that is editable and auto-updates *@
 <div class="container-fluid">
-  <h1>Web Sockets WhiteBoard</h1>
-  <textarea @bind="@message" @oninput="@((EventArgs) => { SetMessage( EventArgs.Value.ToString() ); })" />
-  @* <textarea value="@message" @onkeyup="UpdateValue" @onchange="Send" /> *@
+  <h1>Welcome To The Slate!</h1>
+  <div class="container">
+    <h3>Please Register a new account or Login to continue...</h3>
+  </div>
+  <div class="container">
+
+  </div>
 </div>
-
-@* if not the Editor, just show an output window with the text *@
-<div class="container-fluid ">
-  <div class="card">@message</div>
-</div>
-
-@code {
-  private HubConnection hubConnection;
-  private string message;
-
-  protected override async Task OnInitializedAsync()
-  {
-    hubConnection = new HubConnectionBuilder()
-    .WithUrl(NavigationManager.ToAbsoluteUri("/slatehub"))
-    .Build();
-
-    hubConnection.On<string>("ReceiveMessage", (msg) =>
-    {
-      Console.WriteLine("RECEIVED FROM SERVER {0}", msg);
-      message = msg;
-      Console.WriteLine("MESSAGE UPDATED TO: {0}", message);
-      StateHasChanged();
-    });
-
-    await hubConnection.StartAsync();
-  }
-
-  private async void SetMessage(string msg)
-  {
-    message = msg;
-    await Send();
-  }
-
-  async Task Send()
-  {
-    Console.WriteLine("HIT SEND HANDLER {0}", message);
-    await hubConnection.SendAsync("SendMessage", message);
-  }
-
-  public bool IsConnected =>
-  hubConnection.State == HubConnectionState.Connected;
-
-  public async ValueTask DisposeAsync()
-  {
-    await hubConnection.DisposeAsync();
-  }
-}

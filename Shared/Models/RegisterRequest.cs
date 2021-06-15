@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Slate.Server.Models
+namespace Slate.Shared.Models
 {
   public class RegisterRequest
   {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using Slate.Server.Entities;
+using Slate.Shared.Entities;
 
 namespace Slate.Server.Helpers
 {

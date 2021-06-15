@@ -2,8 +2,8 @@
 using System;
 
 using Slate.Server.Helpers;
-using Slate.Server.Models;
 using Slate.Server.Services;
+using Slate.Shared.Models;
 
 namespace Slate.Server.Controllers
 {
