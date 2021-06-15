@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ChatDemo": {
+    "Slate": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

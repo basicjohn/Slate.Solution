@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace BlazorWebAssemblySignalRApp.Server.Hubs
 {
-    public class ChatHub : Hub
+    public class SlateHub : Hub
     {
         public async Task SendMessage(string message)
         {

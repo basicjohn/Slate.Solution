@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using BlazorWebAssemblySignalRApp.Server.Hubs;
 
-namespace ChatDemo.Server
+namespace Slate.Server
 {
     public class Startup
     {
@@ -60,7 +60,7 @@ namespace ChatDemo.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<SlateHub>("/slatehub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }

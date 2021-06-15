@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\ChatDemo.Client.csproj" />
-    <ProjectReference Include="..\Shared\ChatDemo.Shared.csproj" />
+    <ProjectReference Include="..\Client\Slate.Client.csproj" />
+    <ProjectReference Include="..\Shared\Slate.Shared.csproj" />
   </ItemGroup>
 
 

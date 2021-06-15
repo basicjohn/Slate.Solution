@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\ChatDemo.Shared.csproj" />
+    <ProjectReference Include="..\Shared\Slate.Shared.csproj" />
   </ItemGroup>
 
 </Project>
