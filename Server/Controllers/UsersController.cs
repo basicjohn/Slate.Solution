@@ -8,7 +8,7 @@ using Slate.Shared.Models;
 namespace Slate.Server.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
+  [Route("users")]
   public class UsersController : ControllerBase
   {
     private readonly IUserService _userService;

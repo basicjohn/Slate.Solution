@@ -32,7 +32,6 @@ namespace Slate.Server
     {
       services.AddCors();
       services.AddSignalR();
-      // services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
       services.AddControllers();
       services.AddControllersWithViews();
       services.AddDbContext<SlateServerContext>(options => options

@@ -17,7 +17,9 @@ namespace Slate.Client.Services
   public interface IHttpService
   {
     Task<T> Get<T>(string uri);
+    Task<T> Delete<T>(string uri);
     Task<T> Post<T>(string uri, object value);
+    Task<T> Put<T>(string uri, object value);
   }
 
   public class HttpService : IHttpService
@@ -46,11 +48,28 @@ namespace Slate.Client.Services
       return await SendRequest<T>(request);
     }
 
+    public async Task<T> Delete<T>(string uri)
+    {
+      var request = new HttpRequestMessage(HttpMethod.Delete, uri);
+      return await SendRequest<T>(request);
+    }
+
     public async Task<T> Post<T>(string uri, object value)
     {
       string cereal = JsonSerializer.Serialize(value);
       StringContent content = new(cereal, Encoding.UTF8, "application/json");
       HttpRequestMessage request = new(HttpMethod.Post, uri)
+      {
+        Content = content
+      };
+      return await SendRequest<T>(request);
+    }
+    
+    public async Task<T> Put<T>(string uri, object value)
+    {
+      string cereal = JsonSerializer.Serialize(value);
+      StringContent content = new(cereal, Encoding.UTF8, "application/json");
+      HttpRequestMessage request = new(HttpMethod.Put, uri)
       {
         Content = content
       };
