@@ -1,12 +1,79 @@
 ﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
-<div class="container-fluid">
+@if (AuthenticationService.User == null)
+{
+  <div class="container-fluid">
   <h1>Welcome To The Slate!</h1>
   <div class="container">
     <h3>Please Register a new account or Login to continue...</h3>
   </div>
   <div class="container">
-
+    <h2>Login</h2>
+    <section>
+      <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <section>
+          <label>Username</label>
+          <InputText @bind-Value="model.Email" type="text" />
+          <ValidationMessage For="@(() => model.Email)" />
+        </section>
+        <section>
+          <label>Password</label>
+          <InputText @bind-Value="model.Password" type="password" class="form-control" />
+          <ValidationMessage For="@(() => model.Password)" />
+        </section>
+        <button class="btn btn-primary">
+          @if (loading)
+            {
+              <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Login
+          </button>
+          @if (!string.IsNullOrEmpty(error))
+          {
+            <div class="alert alert-danger mt-3 mb-0">@error</div>
+          }
+        </EditForm>
+      </section>
+    </div>
   </div>
-</div>
+}
+else
+{
+  <span>User Authorized...</span>
+}
+
+
+@code {
+  private Model model = new();
+  private bool loading;
+  private string error;
+
+  private async void HandleValidSubmit()
+  {
+    loading = true;
+    try
+    {
+      await AuthenticationService.Login(model.Email, model.Password);
+      var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
+      NavigationManager.NavigateTo(returnUrl);
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+      loading = false;
+      StateHasChanged();
+    }
+  }
+  private class Model
+  {
+    [Required]
+    public string Email { get; set; }
+
+    [Required]
+    public string Password { get; set; }
+  }
+}

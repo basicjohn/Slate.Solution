@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Slate.Shared.Entities
 {
@@ -17,6 +18,7 @@ namespace Slate.Shared.Entities
     public byte[] Salt { get; set; }
     [JsonIgnore]
     public string Hash { get; set; }
+    [NotMapped]
     public string Token {get;set;}
   }
 }
