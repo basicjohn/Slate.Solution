@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
+@inject IHttpService HttpService
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
@@ -43,8 +44,40 @@
 }
 else
 {
-  <span>User Authorized...</span>
-  <a href="/board">Open Board</a>
+  <h1>Slate Whiteboarding Home</h1>
+  <h2>Welcome, @AuthenticationService.User.Name</h2>
+
+  <a href="/board/test">Open Test</a>
+  <button @onclick="CreateNewBoard">New Board</button>
+
+  <div class="">
+  <h3>Owned Boards:</h3>
+  @if (AuthenticationService.User.BoardsOwned?.Count != 0)
+    {
+      @foreach (Board b in AuthenticationService.User.BoardsOwned)
+      {
+        <a href="/board/@b.Id">@b.Name</a>
+      }
+    }
+    else
+    {
+      <h4>You don't have any boards yet.</h4>
+    }
+  </div>
+  <div class="">
+  <h3>Boards You Can Edit:</h3>
+  @if (AuthenticationService.User.BoardsEditable?.Count != 0)
+    {
+      @foreach (Board b in AuthenticationService.User.BoardsEditable)
+      {
+        <a href="/board/@b.Id">@b.Name</a>
+      }
+    }
+    else
+    {
+      <h4>No boards you can edit found.</h4>
+    }
+  </div>
 }
 
 
@@ -69,6 +102,12 @@ else
       StateHasChanged();
     }
   }
+
+  public void CreateNewBoard()
+  {
+    HttpService.Post<Board>("/boards", new { ownerId = AuthenticationService.User.Id });
+  }
+
   private class Model
   {
     [Required]

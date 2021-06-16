@@ -79,7 +79,6 @@ namespace Slate.Server.Services
     public User GetById(string id) => _db.Users.FirstOrDefault(u => u.Id == id);
 
     // helper methods
-
     private string GenerateJwtToken(User user)
     {
       // generate token that is valid for 7 days

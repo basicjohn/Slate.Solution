@@ -9,7 +9,7 @@ using Slate.Server.Models;
 namespace Slate.Server.Migrations
 {
     [DbContext(typeof(SlateServerContext))]
-    [Migration("20210615212901_Initial")]
+    [Migration("20210616212223_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Slate.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("Slate.Server.Entities.Board", b =>
+            modelBuilder.Entity("Slate.Shared.Entities.Board", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -31,23 +31,29 @@ namespace Slate.Server.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("EditorId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("OwnerId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("URI")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EditorId");
+
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Boards");
                 });
 
-            modelBuilder.Entity("Slate.Server.Entities.User", b =>
+            modelBuilder.Entity("Slate.Shared.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -67,6 +73,32 @@ namespace Slate.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Slate.Shared.Entities.Board", b =>
+                {
+                    b.HasOne("Slate.Shared.Entities.User", "Editor")
+                        .WithMany("BoardsEditable")
+                        .HasForeignKey("EditorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Slate.Shared.Entities.User", "Owner")
+                        .WithMany("BoardsOwned")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Editor");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Slate.Shared.Entities.User", b =>
+                {
+                    b.Navigation("BoardsEditable");
+
+                    b.Navigation("BoardsOwned");
                 });
 #pragma warning restore 612, 618
         }

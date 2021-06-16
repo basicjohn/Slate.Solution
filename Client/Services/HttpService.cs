@@ -64,7 +64,7 @@ namespace Slate.Client.Services
       };
       return await SendRequest<T>(request);
     }
-    
+
     public async Task<T> Put<T>(string uri, object value)
     {
       string cereal = JsonSerializer.Serialize(value);

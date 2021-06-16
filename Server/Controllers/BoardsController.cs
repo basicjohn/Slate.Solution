@@ -2,34 +2,45 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 
 using Slate.Server.Helpers;
+using Slate.Server.Models;
 using Slate.Server.Services;
+using Slate.Shared.Entities;
 using Slate.Shared.Models;
 
 namespace Slate.Server.Controllers
 {
-  [Authorize]
   [ApiController]
   [Route("boards")]
   public class BoardsController : ControllerBase
   {
-    [HttpPost("")]
-    public IActionResult Create()
+    private readonly SlateServerContext _db;
+
+    public BoardsController(SlateServerContext db)
     {
+      _db = db;
+    }
+
+    [HttpPost("")]
+    public IActionResult Create(string ownerId)
+    {
+      Board b = new(ownerId);
+      _db.Boards.Add(b);
+      _db.SaveChanges();
       return Ok();
     }
 
     [HttpGet("")]
-    public IActionResult Read()
+    public IActionResult Read(string id)
     {
       return Ok();
     }
     [HttpPut("")]
-    public IActionResult Update()
+    public IActionResult Update(string id, Board board)
     {
       return Ok();
     }
     [HttpDelete("")]
-    public IActionResult Delete(strng)
+    public IActionResult Delete(string id)
     {
       return Ok();
     }

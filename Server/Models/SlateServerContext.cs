@@ -12,5 +12,13 @@ namespace Slate.Server.Models
     {
       optionsBuilder.UseLazyLoadingProxies();
     }
+    // #region Required
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.Entity<Board>()
+    //         .Property(b => b.Url)
+    //         .IsRequired();
+    // }
+    // #endregion
   }
 }
