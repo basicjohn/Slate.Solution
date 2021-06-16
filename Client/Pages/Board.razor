@@ -1,4 +1,4 @@
-@page "/board"
+@page "/board/{boardId}"
 @attribute [Authorize]
 
 @inject IUserService UserService
@@ -21,18 +21,19 @@
 </div>
 
 @code {
+  [Parameter] public string boardId { get; set; }
   private HubConnection hubConnection;
   private string message;
   private User currentUser;
 
-
   protected override async Task OnInitializedAsync()
   {
     currentUser = AuthenticationService.User;
-    Console.WriteLine(currentUser);
+    Console.WriteLine(boardId);
     hubConnection = new HubConnectionBuilder()
-    .WithUrl(NavigationManager.ToAbsoluteUri("/slatehub"))
+    .WithUrl(NavigationManager.ToAbsoluteUri($"/slatehub"))
     .Build();
+
 
     hubConnection.On<string>("ReceiveMessage", (msg) =>
     {
@@ -43,6 +44,13 @@
     });
 
     await hubConnection.StartAsync();
+
+    await SetupBoardGroup();
+  }
+
+  private async Task SetupBoardGroup()
+  {
+    await hubConnection.SendAsync("AddToGroup", boardId);
   }
 
   private async void SetMessage(string msg)
