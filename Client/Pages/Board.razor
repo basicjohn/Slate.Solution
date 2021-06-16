@@ -15,7 +15,9 @@
 
 @* if not the Editor, just show an output window with the text *@
 <div class="container-fluid ">
-  <div class="card">@message</div>
+  <div class="">
+    <textarea @bind="@message" disabled="true" />
+  </div>
 </div>
 
 @code {
@@ -26,6 +28,8 @@
 
   protected override async Task OnInitializedAsync()
   {
+    currentUser = AuthenticationService.User;
+    Console.WriteLine(currentUser);
     hubConnection = new HubConnectionBuilder()
     .WithUrl(NavigationManager.ToAbsoluteUri("/slatehub"))
     .Build();
@@ -49,8 +53,8 @@
 
   async Task Send()
   {
-    Console.WriteLine("HIT SEND HANDLER {0}", message);
-    await hubConnection.SendAsync("SendMessage", message);
+    Console.WriteLine("HIT SEND HANDLER {0}, by {1}", message, currentUser.Id);
+    await hubConnection.SendAsync("SendMessageByUser", message, currentUser.Id);
   }
 
   public bool IsConnected =>

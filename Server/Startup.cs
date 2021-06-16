@@ -1,8 +1,8 @@
-using BlazorWebAssemblySignalRApp.Server.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.Linq;
 
 using Slate.Server.Helpers;
+using Slate.Server.Hubs;
 using Slate.Server.Models;
 using Slate.Server.Services;
 
@@ -31,6 +32,7 @@ namespace Slate.Server
     {
       services.AddCors();
       services.AddSignalR();
+      // services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
       services.AddControllers();
       services.AddControllersWithViews();
       services.AddDbContext<SlateServerContext>(options => options
