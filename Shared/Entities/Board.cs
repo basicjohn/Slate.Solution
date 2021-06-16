@@ -8,6 +8,7 @@ namespace Slate.Shared.Entities
   {
     public Board(string ownerId)
     {
+      Console.WriteLine($"ownerId: {ownerId}");
       Id = Guid.NewGuid().ToString();
       OwnerId = ownerId;
       EditorId = ownerId;

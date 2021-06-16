@@ -17,7 +17,7 @@
       <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <section>
-          <label>Username</label>
+          <label>Email</label>
           <InputText @bind-Value="model.Email" type="text" />
           <ValidationMessage For="@(() => model.Email)" />
         </section>
@@ -94,6 +94,7 @@ else
       await AuthenticationService.Login(model.Email, model.Password);
       var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
       NavigationManager.NavigateTo(returnUrl);
+      StateHasChanged();
     }
     catch (Exception ex)
     {
@@ -105,6 +106,7 @@ else
 
   public void CreateNewBoard()
   {
+    Console.WriteLine("Creating new board, with ID: {0}", AuthenticationService.User.Id);
     HttpService.Post<Board>("/boards", new { ownerId = AuthenticationService.User.Id });
   }
 

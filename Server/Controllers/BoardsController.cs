@@ -21,9 +21,10 @@ namespace Slate.Server.Controllers
     }
 
     [HttpPost("")]
-    public IActionResult Create(string ownerId)
+    public IActionResult Create(CreateBoardRequest cbr)
     {
-      Board b = new(ownerId);
+      Console.WriteLine("BOARDS CONTROLLER - CREATE NEW BOARD - owner: {0}", cbr.ownerId);
+      Board b = new(cbr.ownerId);
       _db.Boards.Add(b);
       _db.SaveChanges();
       return Ok();

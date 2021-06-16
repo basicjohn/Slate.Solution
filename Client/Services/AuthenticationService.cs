@@ -1,3 +1,4 @@
+using System;
 using Slate.Shared.Models;
 using Slate.Shared.Entities;
 using Microsoft.AspNetCore.Components;
@@ -49,6 +50,7 @@ namespace Slate.Client.Services
         "/users/authenticate",
         new { email, password }
         );
+      Console.WriteLine("AUTH SERVICE - LOGIN - GOT USER id {0}", User.Id);
       await _localStorageService.SetItem("user", User);
     }
 

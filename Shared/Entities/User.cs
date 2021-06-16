@@ -11,8 +11,8 @@ namespace Slate.Shared.Entities
     public User()
     {
       Id = Guid.NewGuid().ToString();
-      BoardsEditable = new HashSet<Board>();
       BoardsOwned = new HashSet<Board>();
+      BoardsEditable= new HashSet<Board>();
     }
     public string Id { get; set; }
     public string Name { get; set; }

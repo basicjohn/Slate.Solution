@@ -56,6 +56,7 @@ namespace Slate.Client.Services
 
     public async Task<T> Post<T>(string uri, object value)
     {
+      Console.WriteLine("HIT HTTP SERVICE - POST - uri {0}, obj {1}", uri, value);
       string cereal = JsonSerializer.Serialize(value);
       StringContent content = new(cereal, Encoding.UTF8, "application/json");
       HttpRequestMessage request = new(HttpMethod.Post, uri)
