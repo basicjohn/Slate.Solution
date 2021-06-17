@@ -1,111 +1,120 @@
-@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url("open-iconic/font/css/open-iconic-bootstrap.min.css");
 
 /* Color Scheme */
 :root {
-    --bkg-color: #1a1f34;
-    --main-color: #242a44;
-    --secondary-color: #262e49 ;
-    --highlight-color: #E2880B ;
-    --highlight-color2: #29304e; 
-    --text-color: rgb(250, 250, 250);
+  --bkg-color: #1a1f34;
+  --main-color: #242a44;
+  --secondary-color: #262e49;
+  --highlight-color: #e2880b;
+  --highlight-color2: #29304e;
+  --text-color: rgb(250, 250, 250);
+}
 
-  }
-
-html, body {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-color);
-    background-color: var(--bkg-color);
-
+html,
+body {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--text-color);
+  background-color: var(--bkg-color);
 }
 
 body {
-    border-top-style: solid;
-    border-top-width: 4px;
-    border-top-color: var(--highlight-color);
-    padding: 5px 0 0 0;
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-top-color: var(--highlight-color);
+  padding: 5px 0 0 0;
 }
-
-
 
 h1 {
-    font-weight: 500;
-    text-align: right;
+  font-weight: 500;
+  text-align: right;
+  color: var(--highlight-color);
 }
 
-a, .btn-link {
-    color: var(--highlight-color)
+.board_uri {
+  font-size: 0.7rem;
+  color: var(--highlight-color2);
+}
+
+.board_uri:hover {
+  color: var(--highlight-color);
+}
+
+a,
+.btn-link {
+  color: var(--highlight-color);
 }
 
 .btn-primary {
-    color: var(--text-color);
-    background-color: var(--highlight-color);
-    border-color: var(--highlight-color2);
+  color: var(--text-color);
+  background-color: var(--highlight-color);
+  border-color: var(--highlight-color2);
 }
 
 .content {
-padding: 0px;}
+  padding: 0px;
+}
 
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+.valid.modified:not([type="checkbox"]) {
+  outline: 1px solid #26b050;
 }
 
 .invalid {
-    outline: 1px solid red;
+  outline: 1px solid red;
 }
 
 .validation-message {
-    color: red;
+  color: red;
 }
 
 #blazor-error-ui {
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+  background: lightyellow;
+  bottom: 0;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 0;
+  padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }
 
 #blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.5rem;
 }
 
 textarea {
-    width: 90vw;
-    height: 75vh;
-    padding: 10px;
-    color: var(--text-color);
-    background-color: var(--main-color);
-    margin-bottom: 2px;
-    /* margin-left: 1vw;
+  width: 90vw;
+  height: 75vh;
+  padding: 10px;
+  color: var(--text-color);
+  background-color: var(--main-color);
+  margin-bottom: 2px;
+  /* margin-left: 1vw;
     margin-right: 1vw; */
-    border-width: 1px;
-    border-color: var(--highlight-color2);
-    overflow: scroll;
-    overflow-x: hidden;
+  border-width: 1px;
+  border-color: var(--highlight-color2);
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 textarea:disabled {
-    background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 
 textarea::-webkit-scrollbar {
-    width: 4px;
-    background-color: var(--highlight-color2); 
+  width: 4px;
+  background-color: var(--highlight-color2);
 }
 
 textarea::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 5px var(--highlight-color2); 
-    border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 5px var(--highlight-color2);
+  border-radius: 0px;
 }
 
 textarea::-webkit-scrollbar-thumb {
-    border-radius: 0px;
-    -webkit-box-shadow: inset 0 0 5px var(--highlight-color); 
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 5px var(--highlight-color);
 }

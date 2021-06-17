@@ -1,4 +1,6 @@
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,18 +37,29 @@ namespace Slate.Server.Controllers
     [HttpGet("")]
     public IActionResult Read(string id)
     {
-      return Ok();
+      Console.WriteLine("SERVER - BOARDS CONTROLLER - GET by id {0}", id);
+      Board b = _db.Boards.FirstOrDefault(b => b.Id == id);
+      Console.WriteLine("SERVER - BOARDS CONTROLLER - retrieved board's id: {0}", b.Id);
+      return Ok(new { board = b });
     }
 
-    [HttpPost("owned")]
-    public IActionResult ReadByOwner(string ownerId)
+    [HttpGet("all")]
+    public IActionResult GetAll()
     {
-      IEnumerable<Board> myBoards = _db.Boards.ToList().Where(b => b.OwnerId == ownerId);
-      Console.WriteLine($"BOARD CONTROLLER - read by owner - myBoards: {myBoards}");
+      IEnumerable<Board> myBoards = _db.Boards.ToList();
+      Console.WriteLine($"BOARD CONTROLLER - read by owner - owner: {myBoards}");
       return Ok(myBoards);
     }
 
-    [HttpPost("editable")]
+    [HttpGet("owned")]
+    public IActionResult ReadByOwner(string ownerId)
+    {
+      IEnumerable<Board> myBoards = _db.Boards.Where(b => b.OwnerId == ownerId).ToList();
+      return Ok(myBoards);
+    }
+
+
+    [HttpGet("editable")]
     public IActionResult ReadByEditor(string editorId)
     {
       IEnumerable<Board> myBoards = _db.Boards.Where(b => b.EditorId == editorId).ToList();

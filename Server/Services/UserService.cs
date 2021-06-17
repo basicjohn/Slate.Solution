@@ -47,6 +47,8 @@ namespace Slate.Server.Services
       // return null if user not found
       if (user == null) return null;
 
+      Console.WriteLine("SERVER - USER SERVICE - found user {0}", user);
+
       // authentication successful so generate jwt token
       return Hasher.Verify(model.Password, user)
         ? new AuthenticateResponse(user, GenerateJwtToken(user))

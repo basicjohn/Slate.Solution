@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Slate</title>
     <base href="/" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
     <!-- <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="css/app.css" rel="stylesheet" />
     <link href="Slate.Client.styles.css" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">Loading...</div>
 
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+      An unhandled error has occurred.
+      <a href="" class="reload">Reload</a>
+      <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-</body>
-
+    <script>
+      console.log("JS...")
+      async function getData() {
+        const res = await fetch(
+          "/boards/owned?ownerId=ec00355c-8676-4bf0-a222-f60e8d746469"
+        )
+        return res.json()
+      }
+      console.log(getData())
+      console.log("END JS...")
+    </script>
+  </body>
 </html>

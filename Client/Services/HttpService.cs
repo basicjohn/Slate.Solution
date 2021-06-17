@@ -48,6 +48,18 @@ namespace Slate.Client.Services
       return await SendRequest<T>(request);
     }
 
+    // public async Task<T> GetOwnedBoards<T>(string uri)
+    // {
+    //   Console.WriteLine("HIT HTTP SERVICE - GET OWNED BOARDS - uri {0}, obj {1}", uri, value);
+    //   string cereal = JsonSerializer.Serialize(value);
+    //   StringContent content = new(cereal, Encoding.UTF8, "application/json");
+    //   HttpRequestMessage request = new(HttpMethod.Get, uri)
+    //   {
+    //     Content = content
+    //   };
+    //   return await SendRequest<T>(request);
+    // }
+
     public async Task<T> Delete<T>(string uri)
     {
       var request = new HttpRequestMessage(HttpMethod.Delete, uri);

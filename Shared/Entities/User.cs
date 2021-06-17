@@ -12,7 +12,7 @@ namespace Slate.Shared.Entities
     {
       Id = Guid.NewGuid().ToString();
       BoardsOwned = new HashSet<Board>();
-      BoardsEditable= new HashSet<Board>();
+      BoardsEditable = new HashSet<Board>();
     }
     public string Id { get; set; }
     public string Name { get; set; }
@@ -22,11 +22,13 @@ namespace Slate.Shared.Entities
     [JsonIgnore]
     public string Hash { get; set; }
     [NotMapped]
-    public string Token {get;set;}
+    public string Token { get; set; }
 
+    [JsonIgnore]
     [InverseProperty("Owner")]
     public virtual ICollection<Board> BoardsOwned { get; set; }
 
+    [JsonIgnore]
     [InverseProperty("Editor")]
     public virtual ICollection<Board> BoardsEditable { get; set; }
   }

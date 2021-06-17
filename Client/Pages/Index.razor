@@ -1,9 +1,13 @@
 ﻿@page "/"
 @using System.Linq
 @using System.ComponentModel.DataAnnotations
+@using System
+@using System.Text
 @inject IHttpService HttpService
+@inject IUserService UserService
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
+@inject HttpClient Http
 
 @if (loading)
 {
@@ -59,11 +63,12 @@ else
 
     <div class="">
   <h3>Owned Boards:</h3>
-  @if (boardsOwned != null)
+  @if (boardsOwned == null)
       {
         @foreach (Board b in boardsOwned)
         {
           <a href="/board/@b.Id">@b.Name</a>
+          <span>@b.OwnerId</span>
         }
       }
       else
@@ -86,6 +91,18 @@ else
       }
     </div>
   }
+  <h3>Users:</h3>
+  @if (users != null)
+  {
+    @foreach (User u in users)
+    {
+      <a href="/board/@u.Id">@u.Email</a>
+    }
+  }
+  else
+  {
+    <h4>No boards you can edit found.</h4>
+  }
 }
 
 @code {
@@ -94,20 +111,17 @@ else
   private string error;
   private IEnumerable<Board> boardsOwned;
   private IEnumerable<Board> boardsEditable;
+  private IEnumerable<User> users;
 
   protected override async Task OnInitializedAsync()
   {
     try
     {
       loading = true;
-      Console.WriteLine("SANITY CHECK 1");
-      boardsOwned = await HttpService.Post<IEnumerable<Board>>("boards/owned",
-      new { ownerId = AuthenticationService.User.Id });
-      Console.WriteLine("SANITY CHECK 2");
-      boardsEditable = await HttpService.Post<IEnumerable<Board>>("boards/editable",
-      new { ownerId = AuthenticationService.User.Id });
-      Console.WriteLine("SANITY CHECK 3");
-      Console.WriteLine("COUNT OWNED - {0}", boardsOwned.ToList().Count);
+      if (AuthenticationService.User != null)
+      {
+        await Setup();
+      }
       loading = false;
       StateHasChanged();
     }
@@ -115,6 +129,27 @@ else
     {
       Console.WriteLine("PROBLEM INITIALIZING HOME {0}", ex);
     }
+  }
+
+  private async Task Setup()
+  {
+    // boardsOwned = await Http.PostAsync("/boards/owned", serialized);
+    // var owned = await Http.GetFromJsonAsync<List<Board>>($"boards/owned?{AuthenticationService.User.Id}");
+    // Console.WriteLine("PWNED: {0}", owned);
+    // Console.WriteLine("PWNED: {0}", owned.GetType());
+    // Console.WriteLine("PWNED: {0}", owned.Count);
+    // Console.WriteLine("PWNED: {0}", owned.ToList());
+    // Console.WriteLine("PWNED: {0}", owned.ToList().Count);
+
+    boardsOwned = await HttpService.Get<IEnumerable<Board>>($"boards/all");
+
+    Console.WriteLine("OWNED {0}", boardsOwned);
+    // boardsEditable = await HttpService.Post<object>("boards/editable",
+    // new { ownerId = AuthenticationService.User.Id });
+    // owned.ForEach(i => Console.Write("{0}\t", i));
+    // Console.WriteLine("COUNT OWNED - {0}", BoardsOwned.Count);
+    Console.WriteLine("COUNT OWNED - {0}", boardsOwned.ToString());
+    users = await UserService.GetAll();
   }
 
   private async void HandleValidSubmit()
@@ -134,10 +169,12 @@ else
     }
   }
 
-  public void CreateNewBoard()
+  public async void CreateNewBoard()
   {
     Console.WriteLine("Creating new board, with ID: {0}", AuthenticationService.User.Id);
-    HttpService.Post<Board>("/boards", new { ownerId = AuthenticationService.User.Id });
+    await HttpService.Post<Board>("/boards", new { ownerId = AuthenticationService.User.Id });
+    //call helper to get all boards
+    StateHasChanged();
   }
 
   private class Model
