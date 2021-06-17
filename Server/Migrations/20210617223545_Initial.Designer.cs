@@ -9,8 +9,8 @@ using Slate.Server.Models;
 namespace Slate.Server.Migrations
 {
     [DbContext(typeof(SlateServerContext))]
-    [Migration("20210616221251_FixUserConstructor")]
-    partial class FixUserConstructor
+    [Migration("20210617223545_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
