@@ -1,12 +1,19 @@
 ﻿@page "/"
+@using System.Linq
 @using System.ComponentModel.DataAnnotations
 @inject IHttpService HttpService
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
-@if (AuthenticationService.User == null)
+@if (loading)
 {
-  <div class="container-fluid">
+  <span>Loading...</span>
+}
+else
+{
+  @if (AuthenticationService.User == null)
+  {
+    <div class="container-fluid">
   <h1>Welcome To The Slate!</h1>
   <div class="container">
     <h3>Please Register a new account or Login to continue...</h3>
@@ -28,67 +35,90 @@
         </section>
         <button class="btn btn-primary">
           @if (loading)
+              {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+              }
+              Login
+            </button>
+            @if (!string.IsNullOrEmpty(error))
             {
-              <span class="spinner-border spinner-border-sm mr-1"></span>
+              <div class="alert alert-danger mt-3 mb-0">@error</div>
             }
-            Login
-          </button>
-          @if (!string.IsNullOrEmpty(error))
-          {
-            <div class="alert alert-danger mt-3 mb-0">@error</div>
-          }
-        </EditForm>
-      </section>
+          </EditForm>
+        </section>
+      </div>
     </div>
-  </div>
-}
-else
-{
-  <h1>Slate Whiteboarding Home</h1>
-  <h2>Welcome, @AuthenticationService.User.Name</h2>
+  }
+  else
+  {
+    <h1>Slate Whiteboarding Home</h1>
+    <h2>Welcome, @AuthenticationService.User.Name</h2>
 
-  <a href="/board/test">Open Test</a>
-  <button @onclick="CreateNewBoard">New Board</button>
+    <a href="/board/test">Open Test</a>
+    <button @onclick="CreateNewBoard">New Board</button>
 
-  <div class="">
+    <div class="">
   <h3>Owned Boards:</h3>
-  @if (AuthenticationService.User.BoardsOwned?.Count != 0)
-    {
-      @foreach (Board b in AuthenticationService.User.BoardsOwned)
+  @if (boardsOwned != null)
       {
-        <a href="/board/@b.Id">@b.Name</a>
+        @foreach (Board b in boardsOwned)
+        {
+          <a href="/board/@b.Id">@b.Name</a>
+        }
       }
-    }
-    else
-    {
-      <h4>You don't have any boards yet.</h4>
-    }
-  </div>
-  <div class="">
+      else
+      {
+        <h4>You don't have any boards yet.</h4>
+      }
+    </div>
+    <div class="">
   <h3>Boards You Can Edit:</h3>
-  @if (AuthenticationService.User.BoardsEditable?.Count != 0)
-    {
-      @foreach (Board b in AuthenticationService.User.BoardsEditable)
+  @if (boardsEditable != null)
       {
-        <a href="/board/@b.Id">@b.Name</a>
+        @foreach (Board b in boardsEditable)
+        {
+          <a href="/board/@b.Id">@b.Name</a>
+        }
       }
-    }
-    else
-    {
-      <h4>No boards you can edit found.</h4>
-    }
-  </div>
+      else
+      {
+        <h4>No boards you can edit found.</h4>
+      }
+    </div>
+  }
 }
-
 
 @code {
   private Model model = new();
   private bool loading;
   private string error;
+  private IEnumerable<Board> boardsOwned;
+  private IEnumerable<Board> boardsEditable;
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      loading = true;
+      Console.WriteLine("SANITY CHECK 1");
+      boardsOwned = await HttpService.Post<IEnumerable<Board>>("boards/owned",
+      new { ownerId = AuthenticationService.User.Id });
+      Console.WriteLine("SANITY CHECK 2");
+      boardsEditable = await HttpService.Post<IEnumerable<Board>>("boards/editable",
+      new { ownerId = AuthenticationService.User.Id });
+      Console.WriteLine("SANITY CHECK 3");
+      Console.WriteLine("COUNT OWNED - {0}", boardsOwned.ToList().Count);
+      loading = false;
+      StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine("PROBLEM INITIALIZING HOME {0}", ex);
+    }
+  }
 
   private async void HandleValidSubmit()
   {
-    loading = true;
     try
     {
       await AuthenticationService.Login(model.Email, model.Password);

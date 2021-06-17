@@ -8,7 +8,7 @@
 
 @* Editor role - show textarea that is editable and auto-updates *@
 <div class="container-fluid">
-  <h1>Web Sockets WhiteBoard</h1>
+  <h1>Slate Whiteboarding - @boardUri</h1>
   <textarea @bind="@message" @oninput="@((EventArgs) => { SetMessage( EventArgs.Value.ToString() ); })" />
   @* <textarea value="@message" @onkeyup="UpdateValue" @onchange="Send" /> *@
 </div>

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Slate.Server.Helpers;
 using Slate.Server.Models;
@@ -35,6 +37,22 @@ namespace Slate.Server.Controllers
     {
       return Ok();
     }
+
+    [HttpPost("owned")]
+    public IActionResult ReadByOwner(string ownerId)
+    {
+      IEnumerable<Board> myBoards = _db.Boards.ToList().Where(b => b.OwnerId == ownerId);
+      Console.WriteLine($"BOARD CONTROLLER - read by owner - myBoards: {myBoards}");
+      return Ok(myBoards);
+    }
+
+    [HttpPost("editable")]
+    public IActionResult ReadByEditor(string editorId)
+    {
+      IEnumerable<Board> myBoards = _db.Boards.Where(b => b.EditorId == editorId).ToList();
+      return Ok(myBoards);
+    }
+
     [HttpPut("")]
     public IActionResult Update(string id, Board board)
     {

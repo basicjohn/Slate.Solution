@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Slate.Shared.Entities;
 
 namespace Slate.Shared.Models
@@ -8,7 +10,6 @@ namespace Slate.Shared.Models
     public string Email { get; set; }
     public string Id { get; set; }
     public string Token { get; set; }
-
     public AuthenticateResponse(User user, string token)
     {
       Id = user.Id;
