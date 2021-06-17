@@ -1,6 +1,4 @@
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +16,15 @@ namespace Slate.Server.Controllers
   public class BoardsController : ControllerBase
   {
     private readonly SlateServerContext _db;
+    private readonly IBoardService _boardService;
 
-    public BoardsController(SlateServerContext db)
+    public BoardsController(SlateServerContext db, IBoardService boardService)
     {
       _db = db;
+      _boardService = boardService;
     }
 
-    [HttpPost("")]
+    [HttpPost("create")]
     public IActionResult Create(CreateBoardRequest cbr)
     {
       Console.WriteLine("BOARDS CONTROLLER - CREATE NEW BOARD - owner: {0}", cbr.ownerId);
@@ -34,7 +34,7 @@ namespace Slate.Server.Controllers
       return Ok();
     }
 
-    [HttpGet("")]
+    [HttpGet("read")]
     public IActionResult Read(string id)
     {
       Console.WriteLine("SERVER - BOARDS CONTROLLER - GET by id {0}", id);
@@ -43,12 +43,20 @@ namespace Slate.Server.Controllers
       return Ok(new { board = b });
     }
 
+    // [HttpGet("all")]
+    // public IActionResult GetAll()
+    // {
+    //   IEnumerable<Board> myBoards = _db.Boards.ToList();
+    //   Console.WriteLine($"BOARD CONTROLLER - read by owner - owner: {myBoards}");
+    //   return Ok(myBoards);
+    // }
+    [Authorize]
+    [HttpGet]
     [HttpGet("all")]
     public IActionResult GetAll()
     {
-      IEnumerable<Board> myBoards = _db.Boards.ToList();
-      Console.WriteLine($"BOARD CONTROLLER - read by owner - owner: {myBoards}");
-      return Ok(myBoards);
+      Console.WriteLine();
+      return Ok(_boardService.GetAll());
     }
 
     [HttpGet("owned")]
@@ -66,12 +74,12 @@ namespace Slate.Server.Controllers
       return Ok(myBoards);
     }
 
-    [HttpPut("")]
+    [HttpPut("put")]
     public IActionResult Update(string id, Board board)
     {
       return Ok();
     }
-    [HttpDelete("")]
+    [HttpDelete("delete")]
     public IActionResult Delete(string id)
     {
       return Ok();

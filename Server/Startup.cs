@@ -41,17 +41,18 @@ namespace Slate.Server
       services.AddRazorPages();
       // cornflourblue: configure DI for application services
       services.AddScoped<IUserService, UserService>();
+      services.AddScoped<IBoardService, BoardService>();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "SlateServer", Version = "v1" });
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-          {
-            Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-            Name = "Authorization",
-            In = ParameterLocation.Header,
-            Type = SecuritySchemeType.ApiKey,
-            Scheme = "Bearer"
-          });
+        {
+          Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+          Name = "Authorization",
+          In = ParameterLocation.Header,
+          Type = SecuritySchemeType.ApiKey,
+          Scheme = "Bearer"
+        });
         c.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
           {
