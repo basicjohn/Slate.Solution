@@ -28,15 +28,18 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
-      console.log("JS...")
-      async function getData() {
-        const res = await fetch(
-          "/boards/owned?ownerId=ec00355c-8676-4bf0-a222-f60e8d746469"
-        )
-        return res.json()
+      window.clipboardCopy = {
+        copyText: function (text) {
+          navigator.clipboard
+            .writeText(text)
+            .then(function () {
+              alert("Copied to clipboard!")
+            })
+            .catch(function (error) {
+              alert(error)
+            })
+        },
       }
-      console.log(getData())
-      console.log("END JS...")
     </script>
   </body>
 </html>

@@ -1,27 +1,25 @@
 @import url("open-iconic/font/css/open-iconic-bootstrap.min.css");
-
 /* Color Scheme */
 :root {
   --bkg-color: #1a1f34;
   --main-color: #242a44;
   --secondary-color: #262e49;
   --highlight-color: #e2880b;
-  --highlight-color2: #29304e;
+  --highlight-color2: #cb7c0e;
   --text-color: rgb(250, 250, 250);
 }
 
-html,
-body {
-  font-family: "JetBrains Mono", monospace;
+:root body {
   color: var(--text-color);
   background-color: var(--bkg-color);
-}
-
-body {
   border-top-style: solid;
   border-top-width: 4px;
   border-top-color: var(--highlight-color);
   padding: 5px 0 0 0;
+}
+
+:root body * {
+  font-family: "JetBrains Mono", monospace;
 }
 
 h1 {
@@ -69,7 +67,8 @@ a,
 #blazor-error-ui {
   background: lightyellow;
   bottom: 0;
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
   display: none;
   left: 0;
   padding: 0.6rem 1.25rem 0.7rem 1.25rem;
@@ -86,6 +85,8 @@ a,
 }
 
 textarea {
+  font-size: 24px;
+  font-weight: 400;
   width: 90vw;
   height: 75vh;
   padding: 10px;
@@ -96,25 +97,10 @@ textarea {
     margin-right: 1vw; */
   border-width: 1px;
   border-color: var(--highlight-color2);
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 textarea:disabled {
   background-color: var(--secondary-color);
+  color: #cccccc;
 }
-
-textarea::-webkit-scrollbar {
-  width: 4px;
-  background-color: var(--highlight-color2);
-}
-
-textarea::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px var(--highlight-color2);
-  border-radius: 0px;
-}
-
-textarea::-webkit-scrollbar-thumb {
-  border-radius: 0px;
-  -webkit-box-shadow: inset 0 0 5px var(--highlight-color);
-}
+/*# sourceMappingURL=app.css.map */
