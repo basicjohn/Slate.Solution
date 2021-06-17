@@ -12,7 +12,7 @@ using Slate.Client.Services;
 
 namespace Slate.Client
 {
-    public class Program
+  public class Program
   {
     public static async Task Main(string[] args)
     {
@@ -25,6 +25,7 @@ namespace Slate.Client
       builder.Services
         .AddScoped<IAuthenticationService, AuthenticationService>()
         .AddScoped<IUserService, UserService>()
+        .AddScoped<IBoardService, BoardService>()
         .AddScoped<IHttpService, HttpService>()
         .AddScoped<ILocalStorageService, LocalStorageService>();
 

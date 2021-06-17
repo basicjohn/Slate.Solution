@@ -1,5 +1,4 @@
 @page "/board/{boardUri}"
-@attribute [Authorize]
 
 @inject IUserService UserService
 @inject IAuthenticationService AuthenticationService
@@ -7,20 +6,24 @@
 @inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
+<h1><a title="Board URI" class="board_uri" @onclick="CopyTextToClipboard">@boardUri</a> Slate Whiteboarding</h1>
+@if (AuthenticationService.User != null)
+{
 <div class="container-fluid">
 
-  <h1><a title="Board URI" class="board_uri" @onclick="CopyTextToClipboard">@boardUri</a> Slate Whiteboarding</h1>
   <textarea @bind="@message" @oninput="@((EventArgs) => { SetMessage( EventArgs.Value.ToString() ); })" />
   <!-- <textarea value="@message" @onkeyup="UpdateValue" @onchange="Send" /> -->
 </div>
-
+}
+else
+{
 <!-- if not the Editor, just show an output window with the text -->
 <div class="container-fluid ">
   <div class="">
     <textarea @bind="@message" disabled="true" />
   </div>
 </div>
-
+}
 @code {
   [Parameter] public string boardUri { get; set; }
   private HubConnection hubConnection;

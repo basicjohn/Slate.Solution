@@ -5,6 +5,7 @@
 @using System.Text
 @inject IHttpService HttpService
 @inject IUserService UserService
+@inject IBoardService BoardService
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
@@ -63,13 +64,17 @@ else
 
     <div class="">
   <h3>Owned Boards:</h3>
-  @if (boardsOwned == null)
+  @if (boardsOwned != null)
       {
+        <ul>
         @foreach (Board b in boardsOwned)
         {
-          <a href="/board/@b.Id">@b.Name</a>
+          <li>
+          <a href="/board/@b.Id">@b.Id</a>
           <span>@b.OwnerId</span>
+          </li>
         }
+        </ul>
       }
       else
       {
@@ -80,10 +85,15 @@ else
   <h3>Boards You Can Edit:</h3>
   @if (boardsEditable != null)
       {
+        <ul>
         @foreach (Board b in boardsEditable)
         {
+          <li>
           <a href="/board/@b.Id">@b.Name</a>
+          </li>
         }
+        }
+        </ul>
       }
       else
       {
@@ -141,9 +151,9 @@ else
     // Console.WriteLine("PWNED: {0}", owned.ToList());
     // Console.WriteLine("PWNED: {0}", owned.ToList().Count);
 
-    boardsOwned = await HttpService.Get<IEnumerable<Board>>($"boards/all");
+    boardsOwned = await BoardService.GetAll();
 
-    Console.WriteLine("OWNED {0}", boardsOwned);
+    Console.WriteLine("OWNED {0}", boardsOwned.ToList().Count);
     // boardsEditable = await HttpService.Post<object>("boards/editable",
     // new { ownerId = AuthenticationService.User.Id });
     // owned.ForEach(i => Console.Write("{0}\t", i));
