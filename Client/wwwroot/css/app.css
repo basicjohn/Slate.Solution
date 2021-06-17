@@ -10,16 +10,52 @@
 }
 
 :root body {
+  margin: 0;
   color: var(--text-color);
   background-color: var(--bkg-color);
   border-top-style: solid;
   border-top-width: 4px;
   border-top-color: var(--highlight-color);
-  padding: 5px 0 0 0;
+  padding: 5px;
 }
 
 :root body * {
   font-family: "JetBrains Mono", monospace;
+}
+
+:root body main {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+:root body main textarea {
+  resize: none;
+  font-size: 24px;
+  font-weight: 400;
+  width: 100%;
+  height: calc(100vh - 200px);
+  padding: 10px;
+  color: var(--text-color);
+  margin-bottom: 2px;
+  /* margin-left: 1vw;
+          margin-right: 1vw; */
+  border-width: 1px;
+  border-color: var(--highlight-color2);
+  outline: none;
+  background: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+:root body main textarea:disabled {
+  color: #919191;
+  border: none;
+}
+
+:root body main textarea:focus-within {
+  background-color: var(--main-color);
 }
 
 h1 {
@@ -82,25 +118,5 @@ a,
   position: absolute;
   right: 0.75rem;
   top: 0.5rem;
-}
-
-textarea {
-  font-size: 24px;
-  font-weight: 400;
-  width: 90vw;
-  height: 75vh;
-  padding: 10px;
-  color: var(--text-color);
-  background-color: var(--main-color);
-  margin-bottom: 2px;
-  /* margin-left: 1vw;
-    margin-right: 1vw; */
-  border-width: 1px;
-  border-color: var(--highlight-color2);
-}
-
-textarea:disabled {
-  background-color: var(--secondary-color);
-  color: #cccccc;
 }
 /*# sourceMappingURL=app.css.map */
